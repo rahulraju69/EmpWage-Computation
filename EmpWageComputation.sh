@@ -2,17 +2,15 @@
 #CONSTANT
 isPartTime=1
 isFullTime=2
-maxHrsInMonth=10
+maxHrsInMonth=4
 empRatePerHrs=20
 numWorkingDays=20
 #VARIABLES
 totalEmpHrs=0;
 totalWorkingDays=0;
-while [[ $totalEmpHrs -lt $maxHrsInMonth && $totalWorkingDays -lt $numWorkingDays ]]
-do
-((totalWorkingDays++))
-empCheck=$(( RANDOM%3 ))
 
+function getWorkHrs(){
+        local $empCheck=$1
 case $empCheck in
         $isPartTime)
                 empHrs=4 ;;
@@ -23,8 +21,23 @@ case $empCheck in
         *)
                 empHrs=0 ;;
 esac
+echo $empHrs
+}
+
+function getEmpWage(){
+        local empHr=$1
+        echo $(($empHr*$empRatePerHrs))
+}
+while [[ $totalEmpHrs -lt $maxHrsInMonth && $totalWorkingDays -lt $numWorkingDays ]]
+do
+((totalWorkingDays++))
+empCheck=$(( RANDOM%3 ))
+empHrs=$( getWorkHrs $empCheck )
 totalEmpHrs=$(($totalEmpHrs+$empHrs))
+dailyWage[$totalWorkingDays]=$(getEmpWage $empHrs)
+
 done
 totalSalary=$(($totalEmpHrs*$empRatePerHrs))
+echo ${dailyWage[@]}
 
 
