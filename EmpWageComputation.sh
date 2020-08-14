@@ -1,11 +1,18 @@
 #!/bin/bash -x
-ispresent=1;
-randomcheck=$(( RANDOM%2 ));
-	if [ $ispresent -eq $randomcheck ];
+isparttime=1;
+isfulltime=2;
+emprateperhr=20;
+randomcheck=$(( RANDOM%3 ));
+	if [ $isparttime -eq $randomcheck ];
 		then
-			emprateperhr=20;
-			emphrs=8;
-		salary=$(( $emphrs*$emprateperhr));
+			emphr=4;
+		elif [ $isfulltime -eq $randomcheck ];
+		then
+			emphr=8;
 		else
-			salary=0;
+			emphr=0;
 	fi
+salary=$(($emphr*$emprateperhr))
+
+
+
