@@ -1,5 +1,3 @@
-#!/bin/bash -x
-#CONSTANT
 isPartTime=1
 isFullTime=2
 maxHrsInMonth=4
@@ -9,6 +7,7 @@ numWorkingDays=20
 totalEmpHrs=0;
 totalWorkingDays=0;
 
+declare -A dailyWage
 function getWorkHrs(){
         local $empCheck=$1
 case $empCheck in
@@ -39,5 +38,5 @@ dailyWage[$totalWorkingDays]=$(getEmpWage $empHrs)
 done
 totalSalary=$(($totalEmpHrs*$empRatePerHrs))
 echo ${dailyWage[@]}
-
+echo ${!dailyWage[@]}
 
