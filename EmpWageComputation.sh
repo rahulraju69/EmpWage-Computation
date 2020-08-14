@@ -1,3 +1,5 @@
+#!/bin/bash -x
+#CONSTANT
 isPartTime=1
 isFullTime=2
 maxHrsInMonth=4
@@ -33,10 +35,11 @@ do
 empCheck=$(( RANDOM%3 ))
 empHrs=$( getWorkHrs $empCheck )
 totalEmpHrs=$(($totalEmpHrs+$empHrs))
-dailyWage[$totalWorkingDays]=$(getEmpWage $empHrs)
+dailyWage[day "$totalWorkingDays"]=$(getEmpWage $empHrs)
 
 done
 totalSalary=$(($totalEmpHrs*$empRatePerHrs))
 echo ${dailyWage[@]}
 echo ${!dailyWage[@]}
+
 
